@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const actividadSchema = new mongoose.Schema(
   {
     nombre: { type: String, required: true }, // Nombre de la actividad, por ejemplo, yoga, spinning
-    descripcion: { type: String, required: true }, // Breve descripción de la actividad
+    descripcion: { type: String }, // Breve descripción de la actividad
     duracion: { type: Number, required: true }, // Duración de la actividad en minutos
     nivel: {
       type: String,

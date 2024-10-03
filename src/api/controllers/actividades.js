@@ -58,16 +58,20 @@ const postActividad = async (req, res, next) => {
 const putActividad = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const newActividad = new Actividad(req.body);
-    newActividad._id = id;
-    const actividadUpdated = await Actividad.findByIdAndUpdate(id, newActividad, {
-      new: true,
-    });
+
+    // Usar findByIdAndUpdate con la opción de $set para no sobrescribir
+    const actividadUpdated = await Actividad.findByIdAndUpdate(
+      id,
+      { $set: req.body },  // Solo actualiza los campos que se envían
+      { new: true, runValidators: true }  // Retorna el nuevo documento y valida el esquema
+    );
+
     return res.status(200).json(actividadUpdated);
   } catch (error) {
     return res.status(400).json("Error en la solicitud");
   }
 };
+
 
 // Eliminar una actividad
 const deleteActividad = async (req, res, next) => {

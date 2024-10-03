@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const { connectDB } = require("./src/config/db");
 const actividadesRouter = require("./src/api/routes/actividades");
+const gimnasiosRouter = require("./src/api/routes/gimnasios");
 const cors = require("cors");
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(cors());
 connectDB();
 
 app.use("/api/v1/actividades", actividadesRouter);
+app.use("/api/v1/gimnasios", gimnasiosRouter);
 
 app.use("*", (req, res, next) => {
   return res.status(404).json("Route not found");
